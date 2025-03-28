@@ -1,54 +1,68 @@
-# React + TypeScript + Vite
+# PDF Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern PDF viewer and editor built with React 19, TypeScript, and Vite. This application allows users to view, navigate, and interact with PDF documents in a clean, responsive interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **PDF Viewing**: Upload and view PDF documents with full page rendering
+- **Multi-page Navigation**: Easily navigate between pages in multi-page documents
+- **Zoom Controls**: Adjust the scale/zoom level of the document
+- **Dark/Light Theme**: Toggle between dark and light themes for comfortable viewing
+- **Responsive Design**: Works well on various screen sizes thanks to Tailwind CSS
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19**: Latest version of React with improved performance
+- **TypeScript**: For type safety and better developer experience
+- **Vite**: Fast, modern frontend build tool
+- **react-pdf**: PDF rendering library for React
+- **Tailwind CSS**: Utility-first CSS framework for styling
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or newer recommended)
+- pnpm (v10.7.0 or newer)
+
+### Installation
+
+```bash
+# Clone the repository (or download the source code)
+# git clone [repository-url]
+
+# Navigate to the project directory
+cd PDF_Editor
+
+# Install dependencies
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+# Start the development server
+pnpm dev
 ```
+
+This will start the development server at http://localhost:5173 (or another port if 5173 is in use).
+
+### Building for Production
+
+```bash
+# Build the application
+pnpm build
+
+# Preview the production build
+pnpm preview
+```
+
+## Project Structure
+
+- `src/components/`: React components for the PDF viewer and editor interface
+- `src/context/`: React context providers (e.g., ThemeContext for dark/light mode)
+- `src/assets/`: Static assets like images and icons
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
