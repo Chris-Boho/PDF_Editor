@@ -3,9 +3,12 @@ import { useTheme } from '../context/ThemeContext';
 
 interface ToolbarProps {
   pdfTitle?: string | null;
+  onAddText?: () => void;
+  onExport?: () => void;
+  isAddingText?: boolean;
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ pdfTitle }) => {
+const Toolbar: React.FC<ToolbarProps> = ({ pdfTitle, onAddText, onExport, isAddingText }) => {
   const { theme, toggleTheme } = useTheme();
   return (
     <div className={`w-full ${theme === 'light' ? 'bg-gray-100 border-b border-gray-300 text-gray-800' : 'bg-gray-800 border-b border-gray-700 text-gray-200'} py-1 fixed top-0 left-0 z-10`}>
@@ -33,6 +36,24 @@ const Toolbar: React.FC<ToolbarProps> = ({ pdfTitle }) => {
 
           {/* Formatting options */}
           <div className="flex items-center space-x-2">
+            {/* Text Annotation Button */}
+            <button
+              onClick={onAddText}
+              className={`px-3 py-1 rounded ${isAddingText ? 'bg-blue-500 text-white' : 'border border-gray-300 hover:bg-gray-100'}`}
+            >
+              Add Text
+            </button>
+
+            {/* Export Button */}
+            <button
+              onClick={onExport}
+              className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100"
+            >
+              Export PDF
+            </button>
+
+            {/* Divider */}
+            <div className="h-6 border-l border-gray-300 mx-2"></div>
             {/* Font dropdown */}
             <div className="flex items-center border border-gray-300 rounded px-2 py-1 cursor-pointer hover:bg-gray-200">
               <span>Arial</span>
