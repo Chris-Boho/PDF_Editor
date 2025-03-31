@@ -10,6 +10,8 @@ export interface Annotation {
 	height: number;
 	content: string;
 	pageNumber: number;
+	fontSize?: number;
+	fontFamily?: string;
 }
 
 interface AnnotationLayerProps {
@@ -20,6 +22,8 @@ interface AnnotationLayerProps {
 	annotations: Annotation[];
 	onAnnotationUpdated?: (annotation: Annotation) => void;
 	editMode?: boolean;
+	fontSize?: number;
+	fontFamily?: string;
 }
 
 const AnnotationLayer: React.FC<AnnotationLayerProps> = ({
@@ -29,7 +33,9 @@ const AnnotationLayer: React.FC<AnnotationLayerProps> = ({
 	onAnnotationAdded,
 	annotations,
 	onAnnotationUpdated,
-	editMode = true
+	editMode = true,
+	fontSize = 12,
+	fontFamily = 'Arial'
 }) => {
 	const layerRef = useRef<HTMLDivElement>(null);
 	const [selectedAnnotation, setSelectedAnnotation] = useState<string | null>(null);
@@ -56,7 +62,9 @@ const AnnotationLayer: React.FC<AnnotationLayerProps> = ({
 			width: 150,
 			height: 50,
 			content: '',
-			pageNumber
+			pageNumber,
+			fontSize,
+			fontFamily
 		};
 
 		if (onAnnotationAdded) {
@@ -112,6 +120,8 @@ const AnnotationLayer: React.FC<AnnotationLayerProps> = ({
 					onSelect={() => handleAnnotationSelect(annotation.id)}
 					onUpdate={handleAnnotationUpdate}
 					editMode={editMode}
+					fontSize={annotation.fontSize || fontSize}
+					fontFamily={annotation.fontFamily || fontFamily}
 				/>
 			))}
 		</div>

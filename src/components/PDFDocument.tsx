@@ -19,13 +19,17 @@ interface PDFDocumentViewerProps {
 	onLoadSuccess: ({ numPages }: { numPages: number }) => void;
 	isTextToolActive?: boolean;
 	onAnnotationsChange?: (annotations: Annotation[]) => void;
+	fontSize?: number;
+	fontFamily?: string;
 }
 
 const PDFDocumentViewer: React.FC<PDFDocumentViewerProps> = ({
 	file,
 	onLoadSuccess,
 	isTextToolActive = false,
-	onAnnotationsChange
+	onAnnotationsChange,
+	fontSize = 12,
+	fontFamily = 'Arial'
 }) => {
 	const [numPages, setNumPages] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -104,6 +108,8 @@ const PDFDocumentViewer: React.FC<PDFDocumentViewerProps> = ({
 									isTextToolActive={localTextToolActive}
 									annotations={annotations}
 									editMode={editMode}
+									fontSize={fontSize}
+									fontFamily={fontFamily}
 									onAnnotationAdded={(annotation) => {
 										setAnnotations((prev) => [...prev, annotation]);
 									}}

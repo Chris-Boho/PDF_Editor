@@ -16,9 +16,11 @@ interface PDFViewerProps {
 	onFileChange?: (file: File | null) => void;
 	isTextToolActive?: boolean;
 	onAnnotationsChange?: (annotations: Annotation[]) => void;
+	fontSize?: number;
+	fontFamily?: string;
 }
 
-const PDFViewer = ({ onFileChange, isTextToolActive = false, onAnnotationsChange }: PDFViewerProps) => {
+const PDFViewer = ({ onFileChange, isTextToolActive = false, onAnnotationsChange, fontSize = 12, fontFamily = 'Arial' }: PDFViewerProps) => {
 	const [file, setFile] = useState<File | null>(null);
 	const [numPages, setNumPages] = useState<number>(0);
 
@@ -50,6 +52,8 @@ const PDFViewer = ({ onFileChange, isTextToolActive = false, onAnnotationsChange
 						onLoadSuccess={onDocumentLoadSuccess}
 						isTextToolActive={isTextToolActive}
 						onAnnotationsChange={onAnnotationsChange}
+						fontSize={fontSize}
+						fontFamily={fontFamily}
 					/>
 				</div>
 			)}

@@ -17,6 +17,8 @@ const AppContent = ({ isTextToolActive, setIsTextToolActive }: AppContentProps) 
 	const [pdfTitle, setPdfTitle] = useState<string | null>(null);
 	const [pdfFile, setPdfFile] = useState<File | null>(null);
 	const [annotations, setAnnotations] = useState<Annotation[]>([]);
+	const [fontSize, setFontSize] = useState<number>(12);
+	const [fontFamily, setFontFamily] = useState<string>('Arial');
 	const fileRef = useRef<HTMLAnchorElement | null>(null);
 
 	const handleTextToolToggle = () => {
@@ -78,6 +80,10 @@ const AppContent = ({ isTextToolActive, setIsTextToolActive }: AppContentProps) 
 				isTextToolActive={isTextToolActive}
 				onTextToolToggle={handleTextToolToggle}
 				onExportPdf={handleExportPdf}
+				fontSize={fontSize}
+				fontFamily={fontFamily}
+				onFontSizeChange={setFontSize}
+				onFontFamilyChange={setFontFamily}
 			/>
 			<div className='mt-8 flex justify-center'>
 				<PDFViewer
@@ -87,6 +93,8 @@ const AppContent = ({ isTextToolActive, setIsTextToolActive }: AppContentProps) 
 					}}
 					isTextToolActive={isTextToolActive}
 					onAnnotationsChange={setAnnotations}
+					fontSize={fontSize}
+					fontFamily={fontFamily}
 				/>
 			</div>
 		</div>

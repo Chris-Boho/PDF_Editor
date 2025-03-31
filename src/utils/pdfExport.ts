@@ -54,8 +54,12 @@ export async function exportPdfWithAnnotations(
 		pageAnnotations.forEach(annotation => {
 			if (annotation.type === 'textbox' && annotation.content.trim()) {
 				// Calculate position (PDF coordinates start from bottom-left)
-				const x = annotation.x;
-				const y = pageHeight - annotation.y;
+				// Add padding offset to account for the textbox border/padding (p-1 class = 0.25rem = ~4px)
+				const paddingOffset = 4;
+				const x = annotation.x + paddingOffset;
+				// Adjust y-coordinate: invert y and add offsets to account for font baseline and padding
+				// PDF text position is at the baseline, not the top of the text
+				const y = pageHeight - annotation.y - 12 - paddingOffset; // Offset by font size and padding to align properly
 				
 				// Ensure the text does not exceed the page width
 				const maxWidth = Math.min(annotation.width, pageWidth - x);
@@ -64,7 +68,7 @@ export async function exportPdfWithAnnotations(
 				page.drawText(annotation.content, {
 					x,
 					y,
-					size: 12,
+					size: 12, // Keep font size consistent in exported PDF
 					font,
 					color: rgb(0, 0, 0),
 					maxWidth

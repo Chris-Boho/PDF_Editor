@@ -6,13 +6,21 @@ interface ToolbarProps {
 	isTextToolActive?: boolean;
 	onTextToolToggle?: () => void;
 	onExportPdf?: () => void;
+	fontFamily?: string;
+	fontSize?: number;
+	onFontFamilyChange?: (fontFamily: string) => void;
+	onFontSizeChange?: (fontSize: number) => void;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
 	pdfTitle,
 	isTextToolActive = false,
 	onTextToolToggle,
-	onExportPdf
+	onExportPdf,
+	fontFamily = 'Arial',
+	fontSize = 12,
+	onFontFamilyChange,
+	onFontSizeChange
 }) => {
 	const { theme, toggleTheme } = useTheme();
 	return (
@@ -46,11 +54,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
 					{/* Formatting options */}
 					<div className='flex items-center space-x-2'>
 						{/* Font dropdown */}
-						<div className='flex items-center border border-gray-300 rounded px-2 py-1 cursor-pointer hover:bg-gray-200'>
-							<span>Arial</span>
+						<div className='relative'>
+							<select 
+								className='flex items-center border border-gray-300 rounded px-2 py-1 cursor-pointer hover:bg-gray-200 appearance-none pr-8 bg-transparent'
+								value={fontFamily}
+								onChange={(e) => onFontFamilyChange && onFontFamilyChange(e.target.value)}
+							>
+								<option value="Arial">Arial</option>
+								<option value="Times New Roman">Times New Roman</option>
+								<option value="Courier New">Courier New</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Verdana">Verdana</option>
+							</select>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
-								className='h-4 w-4 ml-1'
+								className='h-4 w-4 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none'
 								fill='none'
 								viewBox='0 0 24 24'
 								stroke='currentColor'
@@ -60,11 +78,29 @@ const Toolbar: React.FC<ToolbarProps> = ({
 						</div>
 
 						{/* Font size dropdown */}
-						<div className='flex items-center border border-gray-300 rounded px-2 py-1 cursor-pointer hover:bg-gray-200'>
-							<span>11</span>
+						<div className='relative'>
+							<select 
+								className='flex items-center border border-gray-300 rounded px-2 py-1 cursor-pointer hover:bg-gray-200 appearance-none pr-8 bg-transparent'
+								value={fontSize}
+								onChange={(e) => onFontSizeChange && onFontSizeChange(parseInt(e.target.value))}
+							>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="14">14</option>
+								<option value="16">16</option>
+								<option value="18">18</option>
+								<option value="20">20</option>
+								<option value="24">24</option>
+								<option value="28">28</option>
+								<option value="32">32</option>
+								<option value="36">36</option>
+							</select>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
-								className='h-4 w-4 ml-1'
+								className='h-4 w-4 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none'
 								fill='none'
 								viewBox='0 0 24 24'
 								stroke='currentColor'
