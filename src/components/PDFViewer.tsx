@@ -38,18 +38,16 @@ const PDFViewer = ({ onFileChange }: PDFViewerProps) => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {!file ? (
+      {!file && (
         <FileUploader onFileChange={handleFileChange} />
-      ) : (
-        <div className="w-full">
-          <PDFDocumentViewer 
-            file={file}
-            onLoadSuccess={onDocumentLoadSuccess}
-          />
-        </div>
       )}
-
-
+      
+      {file && (
+        <PDFDocumentViewer 
+          file={file} 
+          onLoadSuccess={onDocumentLoadSuccess} 
+        />
+      )}
     </div>
   );
 };
