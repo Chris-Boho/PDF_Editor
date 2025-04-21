@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { pdfjs } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
 import FileUploader from './FileUploader';
 import PDFDocumentViewer from './PDFDocument';
 
@@ -19,13 +17,25 @@ const PDFViewer = ({ onFileChange }: PDFViewerProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [numPages, setNumPages] = useState<number>(0);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files[0]) {
-      setFile(files[0]);
+  const handleFileChange = (eventOrFile: React.ChangeEvent<HTMLInputElement> | (File & { pageCount?: number })) => {
+    if (eventOrFile instanceof File) {
+      // If a File object is passed directly
+      setFile(eventOrFile);
+
+      // If the file has a pageCount property, update numPages
+      if ('pageCount' in eventOrFile && eventOrFile.pageCount) {
+        setNumPages(eventOrFile.pageCount);
+        console.log('Setting numPages from file:', eventOrFile.pageCount);
+      }
+    } else {
+      // If an input event is passed
+      const files = eventOrFile.target.files;
+      if (files && files[0]) {
+        setFile(files[0]);
+      }
     }
   };
-  
+
   useEffect(() => {
     if (onFileChange) {
       onFileChange(file);
@@ -38,18 +48,16 @@ const PDFViewer = ({ onFileChange }: PDFViewerProps) => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {!file ? (
+      {!file && (
         <FileUploader onFileChange={handleFileChange} />
-      ) : (
-        <div className="w-full">
-          <PDFDocumentViewer 
-            file={file}
-            onLoadSuccess={onDocumentLoadSuccess}
-          />
-        </div>
       )}
 
-
+      {/* {file && (
+        <PDFDocumentViewer
+          file={file}
+          onLoadSuccess={onDocumentLoadSuccess}
+        />
+      )} */}
     </div>
   );
 };
